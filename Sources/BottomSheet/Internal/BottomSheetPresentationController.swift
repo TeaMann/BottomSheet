@@ -88,7 +88,9 @@ final class BottomSheetPresentationController: UIPresentationController {
         super.presentationTransitionWillBegin()
         
         containerView?.addSubview(overlayView)
-        presentedView?.addSubview(pullBarView)
+        if (configuration.showPullBar) {
+            presentedView?.addSubview(pullBarView)
+        }
         
         overlayView.alpha = 0
         
