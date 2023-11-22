@@ -74,7 +74,7 @@ final class BottomSheetPresentationController: UIPresentationController {
         ).height
         /// The target height of the presented view.
         /// If the size of the of the presented view could not be computed, meaning its equal to zero, we default to the maximum height.
-        let targetHeight = presentedViewHeight == .zero ? maximumHeight : presentedViewHeight
+        let targetHeight = configuration.targetHeight == nil ? (presentedViewHeight == .zero ? maximumHeight : presentedViewHeight) : configuration.targetHeight!
         /// Adjust the height of the view by adding the bottom safe area inset.
         let adjustedHeight = min(targetHeight, maximumHeight) + containerView.safeAreaInsets.bottom
         

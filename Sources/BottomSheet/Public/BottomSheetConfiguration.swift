@@ -22,6 +22,8 @@ public struct BottomSheetConfiguration {
     /// Value range is 0...1
     public let dismissThreshold: CGFloat
     
+    public let targetHeight: CGFloat?
+    
     public init(showPullBar: Bool,
                 tapToDismissEnabled: Bool,
                 panToDismissEnaled: Bool,
@@ -29,7 +31,8 @@ public struct BottomSheetConfiguration {
                 overlayColor: UIColor,
                 animationDuration: TimeInterval,
                 dampingRatio: Double,
-                dismissThreshold: CGFloat) {
+                dismissThreshold: CGFloat,
+                targetHeight: CGFloat?) {
         self.showPullBar = showPullBar
         self.tapToDismissEnabled = tapToDismissEnabled
         self.panToDismissEnaled = panToDismissEnaled
@@ -38,6 +41,7 @@ public struct BottomSheetConfiguration {
         self.animationDuration = animationDuration
         self.dampingRatio = dampingRatio
         self.dismissThreshold = dismissThreshold
+        self.targetHeight = targetHeight
     }
     
     // MARK: Configurations
@@ -50,6 +54,7 @@ public struct BottomSheetConfiguration {
         overlayColor: .black.withAlphaComponent(0.3),
         animationDuration: 0.5,
         dampingRatio: 0.9,
-        dismissThreshold: 0.3
+        dismissThreshold: 0.3,
+        targetHeight: nil
     )
 }
