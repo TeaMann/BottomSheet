@@ -40,15 +40,18 @@ final class BottomSheetPresentationController: UIPresentationController {
     }
     
     private let configuration: BottomSheetConfiguration
+    private weak var customDelegate: BottomSheetDelegate?
     
     // MARK: Init
     
     init(
         presentedViewController: UIViewController,
         presenting: UIViewController?,
-        configuration: BottomSheetConfiguration
+        configuration: BottomSheetConfiguration,
+        customDelegate: BottomSheetDelegate?
     ) {
         self.configuration = configuration
+        self.customDelegate = customDelegate
         super.init(presentedViewController: presentedViewController, presenting: presenting)
     }
   
@@ -137,7 +140,10 @@ final class BottomSheetPresentationController: UIPresentationController {
     }
     
     private func setupPresentedViewInteraction() {
-        guard let presentedView = presentedView else { return }
+        guard configuration.panToDismissEnabled,
+              let presentedView = presentedView else {
+            return
+        }
         presentedView.addGestureRecognizer(panGesture)
     }
     
@@ -169,6 +175,7 @@ final class BottomSheetPresentationController: UIPresentationController {
         }
         if transitioningDelegate.transition.dismissFractionComplete > dismissThreshold {
             transitioningDelegate.transition.finish()
+            customDelegate?.didDismissBottomSheetView()
         } else {
             transitioningDelegate.transition.cancel()
         }
@@ -177,6 +184,7 @@ final class BottomSheetPresentationController: UIPresentationController {
     @objc
     private func didTapOverlayView() {
         dismiss(interactively: false)
+        customDelegate?.didDismissBottomSheetView()
     }
     
     @objc
