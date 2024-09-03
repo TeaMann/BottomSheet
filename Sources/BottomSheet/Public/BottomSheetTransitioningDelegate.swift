@@ -9,11 +9,13 @@ public final class BottomSheetTransitioningDelegate: NSObject {
     // MARK: Private properties
     
     private let configuration: BottomSheetConfiguration
+    private weak var customDelegate: BottomSheetDelegate?
     
     // MARK: Init
     
-    public init(configuration: BottomSheetConfiguration) {
+    public init(configuration: BottomSheetConfiguration, customDelegate: BottomSheetDelegate? = nil) {
         self.configuration = configuration
+        self.customDelegate = customDelegate
         self.transition = BottomSheetTransition(configuration: configuration)
     }
 }
@@ -49,6 +51,7 @@ extension BottomSheetTransitioningDelegate: UIViewControllerTransitioningDelegat
     ) -> UIPresentationController? {
         BottomSheetPresentationController(presentedViewController: presented,
                                           presenting: presenting,
-                                          configuration: configuration)
+                                          configuration: configuration,
+                                          customDelegate: customDelegate)
     }
 }
